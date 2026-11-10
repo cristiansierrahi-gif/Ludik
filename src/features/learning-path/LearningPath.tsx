@@ -59,19 +59,21 @@ export function LearningPath({ skillId }: { skillId: SkillId }) {
 
   return (
     <div className="relative">
-      <p
-        aria-live="polite"
-        className={cn(
-          "sticky top-20 z-10 mx-auto mb-2 flex max-w-md items-start gap-2 rounded-xl border-2 border-warning bg-warning-soft px-4 py-3 font-bold text-strong shadow-card transition-opacity",
-          announce ? "opacity-100" : "pointer-events-none h-0 overflow-hidden border-0 p-0 opacity-0",
-        )}
-      >
+      <div aria-live="polite" className="sticky top-36 z-10 lg:top-20">
         {announce && (
-          <>
-            <Lock aria-hidden className="mt-0.5 size-5 shrink-0 text-warning" /> {announce}
-          </>
+          <p className="mx-auto mb-2 flex max-w-md animate-pop-in items-start gap-2 rounded-xl border-2 border-warning bg-warning-soft px-4 py-3 font-bold text-strong shadow-card">
+            <Lock aria-hidden className="mt-0.5 size-5 shrink-0 text-warning" />
+            <span className="flex-1">{announce}</span>
+            <button
+              type="button"
+              onClick={() => setAnnounce("")}
+              className="-my-1 rounded-lg px-2 text-sm underline"
+            >
+              Entendido
+            </button>
+          </p>
         )}
-      </p>
+      </div>
 
       <ol className="relative mx-auto w-full max-w-xl list-none" style={{ height }} aria-label={`Camino de ${c.name}`}>
         <svg
