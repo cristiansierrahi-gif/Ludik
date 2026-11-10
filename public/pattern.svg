@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360" fill="none" stroke="#555555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <!-- letra A -->
+  <path d="M30 80 L48 30 L66 80 M37 62 H59"/>
+  <!-- libro -->
+  <path d="M130 40 q20-10 40 0 v45 q-20-10-40 0 z M170 40 q20-10 40 0 v45 q-20-10-40 0"/>
+  <!-- globo de diálogo -->
+  <path d="M260 30 h60 a10 10 0 0 1 10 10 v30 a10 10 0 0 1-10 10 h-35 l-15 14 v-14 h-10 a10 10 0 0 1-10-10 v-30 a10 10 0 0 1 10-10 z"/>
+  <!-- nota musical -->
+  <path d="M50 190 v-50 l35-8 v50 M50 190 a10 8 0 1 1-1-1 M85 182 a10 8 0 1 1-1-1"/>
+  <!-- micrófono -->
+  <path d="M170 140 a15 15 0 0 1 30 0 v25 a15 15 0 0 1-30 0 z M160 165 a25 25 0 0 0 50 0 M185 190 v15 M172 205 h26"/>
+  <!-- lápiz -->
+  <path d="M265 210 l50-50 l12 12 l-50 50 l-16 4 z M305 170 l12 12"/>
+  <!-- ondas de sonido -->
+  <path d="M40 280 q10-20 0-40 M55 290 q20-30 0-60 M70 300 q30-40 0-80"/>
+  <!-- letra B / signo de interrogación -->
+  <path d="M160 260 q0-20 20-20 q20 0 20 18 q0 12-20 18 v10 M180 305 v1"/>
+  <!-- estrella -->
+  <path d="M290 250 l8 17 l19 2 l-14 13 l4 19 l-17-10 l-17 10 l4-19 l-14-13 l19-2 z"/>
+</svg>
