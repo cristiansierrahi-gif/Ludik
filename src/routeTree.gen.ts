@@ -10,12 +10,48 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccesoRouteImport } from './routes/acceso'
+import { Route as AjustesRouteImport } from './routes/ajustes'
+import { Route as LogrosRouteImport } from './routes/logros'
+import { Route as NosotrosRouteImport } from './routes/nosotros'
+import { Route as PlanesRouteImport } from './routes/planes'
+import { Route as ProgresoRouteImport } from './routes/progreso'
 import { Route as HabilidadSkillIdRouteImport } from './routes/habilidad.$skillId'
 import { Route as EjercicioSkillIdModuleIdLevelIdRouteImport } from './routes/ejercicio.$skillId.$moduleId.$levelId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccesoRoute = AccesoRouteImport.update({
+  id: '/acceso',
+  path: '/acceso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AjustesRoute = AjustesRouteImport.update({
+  id: '/ajustes',
+  path: '/ajustes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogrosRoute = LogrosRouteImport.update({
+  id: '/logros',
+  path: '/logros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NosotrosRoute = NosotrosRouteImport.update({
+  id: '/nosotros',
+  path: '/nosotros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlanesRoute = PlanesRouteImport.update({
+  id: '/planes',
+  path: '/planes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgresoRoute = ProgresoRouteImport.update({
+  id: '/progreso',
+  path: '/progreso',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HabilidadSkillIdRoute = HabilidadSkillIdRouteImport.update({
@@ -32,35 +68,82 @@ const EjercicioSkillIdModuleIdLevelIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/acceso': typeof AccesoRoute
+  '/ajustes': typeof AjustesRoute
+  '/logros': typeof LogrosRoute
+  '/nosotros': typeof NosotrosRoute
+  '/planes': typeof PlanesRoute
+  '/progreso': typeof ProgresoRoute
   '/habilidad/$skillId': typeof HabilidadSkillIdRoute
   '/ejercicio/$skillId/$moduleId/$levelId': typeof EjercicioSkillIdModuleIdLevelIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/acceso': typeof AccesoRoute
+  '/ajustes': typeof AjustesRoute
+  '/logros': typeof LogrosRoute
+  '/nosotros': typeof NosotrosRoute
+  '/planes': typeof PlanesRoute
+  '/progreso': typeof ProgresoRoute
   '/habilidad/$skillId': typeof HabilidadSkillIdRoute
   '/ejercicio/$skillId/$moduleId/$levelId': typeof EjercicioSkillIdModuleIdLevelIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/acceso': typeof AccesoRoute
+  '/ajustes': typeof AjustesRoute
+  '/logros': typeof LogrosRoute
+  '/nosotros': typeof NosotrosRoute
+  '/planes': typeof PlanesRoute
+  '/progreso': typeof ProgresoRoute
   '/habilidad/$skillId': typeof HabilidadSkillIdRoute
   '/ejercicio/$skillId/$moduleId/$levelId': typeof EjercicioSkillIdModuleIdLevelIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/habilidad/$skillId' | '/ejercicio/$skillId/$moduleId/$levelId'
+    | '/'
+    | '/acceso'
+    | '/ajustes'
+    | '/logros'
+    | '/nosotros'
+    | '/planes'
+    | '/progreso'
+    | '/habilidad/$skillId'
+    | '/ejercicio/$skillId/$moduleId/$levelId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/habilidad/$skillId' | '/ejercicio/$skillId/$moduleId/$levelId'
+  to:
+    | '/'
+    | '/acceso'
+    | '/ajustes'
+    | '/logros'
+    | '/nosotros'
+    | '/planes'
+    | '/progreso'
+    | '/habilidad/$skillId'
+    | '/ejercicio/$skillId/$moduleId/$levelId'
   id:
     | '__root__'
     | '/'
+    | '/acceso'
+    | '/ajustes'
+    | '/logros'
+    | '/nosotros'
+    | '/planes'
+    | '/progreso'
     | '/habilidad/$skillId'
     | '/ejercicio/$skillId/$moduleId/$levelId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccesoRoute: typeof AccesoRoute
+  AjustesRoute: typeof AjustesRoute
+  LogrosRoute: typeof LogrosRoute
+  NosotrosRoute: typeof NosotrosRoute
+  PlanesRoute: typeof PlanesRoute
+  ProgresoRoute: typeof ProgresoRoute
   HabilidadSkillIdRoute: typeof HabilidadSkillIdRoute
   EjercicioSkillIdModuleIdLevelIdRoute: typeof EjercicioSkillIdModuleIdLevelIdRoute
 }
@@ -72,6 +155,48 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/acceso': {
+      id: '/acceso'
+      path: '/acceso'
+      fullPath: '/acceso'
+      preLoaderRoute: typeof AccesoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ajustes': {
+      id: '/ajustes'
+      path: '/ajustes'
+      fullPath: '/ajustes'
+      preLoaderRoute: typeof AjustesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/logros': {
+      id: '/logros'
+      path: '/logros'
+      fullPath: '/logros'
+      preLoaderRoute: typeof LogrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nosotros': {
+      id: '/nosotros'
+      path: '/nosotros'
+      fullPath: '/nosotros'
+      preLoaderRoute: typeof NosotrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/planes': {
+      id: '/planes'
+      path: '/planes'
+      fullPath: '/planes'
+      preLoaderRoute: typeof PlanesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progreso': {
+      id: '/progreso'
+      path: '/progreso'
+      fullPath: '/progreso'
+      preLoaderRoute: typeof ProgresoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/habilidad/$skillId': {
@@ -93,6 +218,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccesoRoute: AccesoRoute,
+  AjustesRoute: AjustesRoute,
+  LogrosRoute: LogrosRoute,
+  NosotrosRoute: NosotrosRoute,
+  PlanesRoute: PlanesRoute,
+  ProgresoRoute: ProgresoRoute,
   HabilidadSkillIdRoute: HabilidadSkillIdRoute,
   EjercicioSkillIdModuleIdLevelIdRoute: EjercicioSkillIdModuleIdLevelIdRoute,
 }
