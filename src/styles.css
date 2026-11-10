@@ -1,9 +1,5 @@
 /*
- * Tailwind v4 entry: config lives here, with no tailwind.config.js or PostCSS plugin.
- * - Keep every @import in this top block, above @theme and the rest of the file. Install an
- *   npm package before @importing its CSS. Never @import a remote URL (web fonts, CDN CSS): the
- *   build resolves @import from the filesystem. Load those with a <link> in the head() of
- *   src/routes/__root.tsx and name the family in a --font-* token in @theme inline below.
+ * Tailwind v4 entry. Web fonts (Titan One, Nunito) load via <link> in src/routes/__root.tsx.
  */
 @import "tailwindcss" source(none);
 @source "../src";
@@ -11,32 +7,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Design system definition.
- *
- * The design lives in this file: oklch color tokens on the shadcn variables
- * (--background, --foreground, --primary, --secondary, --muted, --accent, ...) plus
- * new tokens as needed, font tokens, and custom styles and animations.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
- */
+/* ============================================================
+ * LUDIK DESIGN SYSTEM — tokens from the brand brief (sección 4.1)
+ * ============================================================ */
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --font-display: "Titan One", "Bowlby One", system-ui, sans-serif;
+  --font-sans: "Nunito", system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -57,90 +42,104 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Brand */
+  --color-strong: var(--strong);
+  --color-ui-gray: var(--ui-gray);
+  --color-orange: var(--ludik-orange);
+  --color-teal: var(--ludik-teal);
+  --color-blue: var(--ludik-blue);
+  --color-yellow: var(--ludik-yellow);
+  --color-salmon: var(--ludik-salmon);
+  --color-cobalt: var(--ludik-cobalt);
+  --color-ink-orange: var(--ink-orange);
+  --color-ink-teal: var(--ink-teal);
+  --color-ink-blue: var(--ink-blue);
+  --color-ink-yellow: var(--ink-yellow);
+  --color-ink-salmon: var(--ink-salmon);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-locked: var(--locked);
+  --color-locked-foreground: var(--locked-foreground);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+
+  --animate-pulse-soft: pulse-soft 2.2s ease-in-out infinite;
+  --animate-bob: bob 3s ease-in-out infinite;
+  --animate-wiggle: wiggle 0.7s ease-in-out;
+  --animate-pop-in: pop-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.3);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 1rem;
+
+  --background: oklch(0.97 0.003 106.4); /* #F5F5F3 */
+  --foreground: oklch(0.45 0 0); /* #555555 */
+  --strong: oklch(0.289 0 0); /* #2B2B2B */
+  --ui-gray: oklch(0.446 0.037 257.3); /* #475569 */
+
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.45 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --popover-foreground: oklch(0.45 0 0);
+
+  --ludik-orange: oklch(0.766 0.154 55.9); /* #FC9645 */
+  --ludik-teal: oklch(0.772 0.105 178.1); /* #5FCBB5 */
+  --ludik-blue: oklch(0.731 0.137 238.3); /* #42B3F4 */
+  --ludik-yellow: oklch(0.89 0.11 84.3); /* #FDD583 */
+  --ludik-salmon: oklch(0.765 0.129 34.7); /* #F9937A */
+  --ludik-cobalt: oklch(0.428 0.172 259.7); /* #0047AB */
+
+  --ink-orange: oklch(0.532 0.137 49.6);
+  --ink-teal: oklch(0.526 0.094 178.3);
+  --ink-blue: oklch(0.528 0.137 247.5);
+  --ink-yellow: oklch(0.508 0.108 73.3);
+  --ink-salmon: oklch(0.541 0.147 34);
+
+  --primary: var(--ludik-orange);
+  --primary-foreground: var(--strong); /* dark text on orange (contrast) */
+  --secondary: oklch(0.945 0.006 95);
+  --secondary-foreground: var(--strong);
+  --muted: oklch(0.94 0.004 100);
+  --muted-foreground: oklch(0.446 0.037 257.3);
+  --accent: oklch(0.955 0.03 84);
+  --accent-foreground: var(--strong);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(1 0 0);
+  --success: oklch(0.52 0.13 150);
+  --success-soft: oklch(0.95 0.05 150);
+  --warning: oklch(0.55 0.13 70);
+  --warning-soft: oklch(0.96 0.06 85);
+  --locked: oklch(0.92 0.005 260);
+  --locked-foreground: oklch(0.45 0.02 260);
+
+  --border: oklch(0.918 0.006 264.5); /* #E2E4E8 */
+  --input: oklch(0.88 0.008 264.5);
+  --ring: var(--ludik-cobalt);
+
+  --shadow-card: 0 1px 2px oklch(0.3 0 0 / 0.04), 0 6px 20px -8px oklch(0.3 0 0 / 0.12);
+  --shadow-pop: 0 18px 40px -16px oklch(0.3 0 0 / 0.3);
 }
 
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+/* Alto contraste (Ajustes) */
+html.hc {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2 0 0);
+  --card-foreground: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.3 0.02 257);
+  --border: oklch(0.45 0 0);
+  --input: oklch(0.35 0 0);
+}
+
+/* Tamaño de texto (Ajustes) */
+html.text-lg-pref {
+  font-size: 112.5%;
+}
+html.text-xl-pref {
+  font-size: 125%;
 }
 
 @layer base {
@@ -148,8 +147,163 @@
     border-color: var(--color-border);
   }
 
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.55;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--color-strong);
+  }
+
+  /* Foco visible cobalto ≥3px con offset en todos los controles */
+  :focus-visible {
+    outline: 3px solid var(--ludik-cobalt);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+/* ============================================================
+ * Components & utilities
+ * ============================================================ */
+
+/* Fondo con patrón muy sutil de íconos educativos */
+.ludik-pattern {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("/pattern.svg");
+  background-size: 360px 360px;
+  opacity: 0.05;
+}
+
+/* Barra gruesa redondeada bajo los títulos de sección */
+@utility title-bar {
+  position: relative;
+  padding-bottom: 0.6rem;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 4.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--bar-color, var(--ludik-orange));
+  }
+}
+
+@utility title-bar-center {
+  &::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Botón "3D" con sombra inferior */
+@utility btn-3d {
+  box-shadow: 0 4px 0 0 var(--btn-shadow, var(--ink-orange));
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease,
+    filter 0.15s ease;
+  &:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 0 var(--btn-shadow, var(--ink-orange));
+  }
+}
+
+/* Cono de luz amarillo suave sobre el personaje seleccionado */
+@utility spotlight {
+  background: radial-gradient(
+    ellipse 60% 85% at 50% 0%,
+    color-mix(in oklab, var(--ludik-yellow) 85%, transparent) 0%,
+    color-mix(in oklab, var(--ludik-yellow) 35%, transparent) 45%,
+    transparent 75%
+  );
+}
+
+@utility grayscale-char {
+  filter: grayscale(1) contrast(0.9) brightness(1.05);
+  opacity: 0.75;
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--node-color, var(--ludik-orange)) 55%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 14px color-mix(in oklab, var(--node-color, var(--ludik-orange)) 0%, transparent);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Movimiento reducido: sistema o interruptor propio */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
 }

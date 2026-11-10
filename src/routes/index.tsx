@@ -1,23 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Hub } from "@/features/hub/Hub";
+import { useLudik } from "@/store/ludik-store";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Ludik — Una forma divertida de aprender idiomas" },
+      {
+        name: "description",
+        content:
+          "Practica escucha, lectura, escritura y habla en inglés con Echo, Lexi, Tinta y Fono. Minijuegos, estrellas y rachas.",
+      },
+      { property: "og:title", content: "Ludik — Una forma divertida de aprender idiomas" },
+      {
+        property: "og:description",
+        content: "Practica escucha, lectura, escritura y habla con los personajes de Ludik.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  const { state, selectSkill } = useLudik();
+  return <Hub skillId={state.selectedSkill} onSelect={selectSkill} />;
 }
