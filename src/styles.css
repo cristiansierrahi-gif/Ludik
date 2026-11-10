@@ -215,7 +215,7 @@ html.text-xl-pref {
 
 /* Botón "3D" con sombra inferior */
 @utility btn-3d {
-  box-shadow: 0 4px 0 0 color-mix(in oklab, currentColor 18%, var(--btn-shadow, var(--ink-orange)));
+  box-shadow: 0 4px 0 0 var(--btn-shadow, var(--ink-orange));
   transition:
     transform 0.08s ease,
     box-shadow 0.08s ease,
