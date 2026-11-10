@@ -43,7 +43,7 @@ export function ModuleShell({
           <span aria-hidden className="text-sm text-ui-gray">XP</span>
         </span>
       </div>
-      <main id="contenido">{children}</main>
+      <div>{children}</div>
       <div className="mt-10 flex justify-end">
         <Logo size="sm" />
       </div>
