@@ -57,8 +57,11 @@ function reducer(state: LudikState, action: Action): LudikState {
 
 interface LudikContextValue {
   state: LudikState;
+  /** true tras montar en el cliente; los valores dependientes de la fecha son fiables. */
+  ready: boolean;
   today: string;
   streakToday: number;
+  todayXp: number;
   reducedMotion: boolean;
   selectSkill(skillId: SkillId | null): void;
   submitResult(node: PathNode, partial: Omit<ModuleResult, "userId" | "date" | "nodeId" | "skillId">): ModuleResult;
@@ -76,13 +79,16 @@ export function LudikProvider({ children }: { children: ReactNode }) {
   const adapterRef = useRef<PersistenceAdapter | null>(null);
   const hydrated = useRef(false);
   const [systemReduced, setSystemReduced] = useState(false);
+  // `today` solo existe en el cliente: el servidor puede estar en otra zona horaria.
+  const [today, setToday] = useState<string | null>(null);
 
   // Hidratar desde el adaptador después de montar (evita desajustes de SSR).
   useEffect(() => {
     adapterRef.current = createAdapter();
     const saved = adapterRef.current.load();
-    if (saved) dispatch({ type: "hydrate", state: saved });
+    dispatch({ type: "hydrate", state: saved ?? createSeedState() });
     hydrated.current = true;
+    setToday(toDay(new Date()));
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setSystemReduced(mq.matches);
     const onChange = (e: MediaQueryListEvent) => setSystemReduced(e.matches);
@@ -102,8 +108,6 @@ export function LudikProvider({ children }: { children: ReactNode }) {
     html.classList.toggle("text-lg-pref", state.prefs.textSize === "large");
     html.classList.toggle("text-xl-pref", state.prefs.textSize === "xlarge");
   }, [state.prefs]);
-
-  const today = toDay(new Date());
 
   const submitResult = useCallback<LudikContextValue["submitResult"]>(
     (node, partial) => {
@@ -142,8 +146,12 @@ export function LudikProvider({ children }: { children: ReactNode }) {
   const value = useMemo<LudikContextValue>(
     () => ({
       state,
-      today,
-      streakToday: visibleStreak(state.streak, today),
+      ready: today !== null,
+      today: today ?? "",
+      streakToday: today ? visibleStreak(state.streak, today) : state.streak.current,
+      todayXp: today
+        ? state.results.filter((r) => toDay(new Date(r.date)) === today).reduce((a, r) => a + r.xp, 0)
+        : 0,
       reducedMotion: state.prefs.reducedMotion || systemReduced,
       selectSkill: (skillId) => dispatch({ type: "selectSkill", skillId }),
       submitResult,
